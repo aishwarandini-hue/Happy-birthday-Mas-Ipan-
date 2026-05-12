@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Happy Birthday Mas Ipan 🌻</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  overflow:hidden;
+  font-family:Arial,sans-serif;
+  background:black;
+  color:white;
+}
+
+/* ===== CINEMATIC BACKGROUND ===== */
+.bg{
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 20% 20%, #2b1055, transparent 40%),
+    radial-gradient(circle at 80% 70%, #0b3d91, transparent 40%),
+    radial-gradient(circle at center, #000, #000);
+  animation:bgMove 12s ease-in-out infinite alternate;
+  z-index:-3;
+}
+@keyframes bgMove{
+  from{transform:scale(1)}
+  to{transform:scale(1.1)}
+}
+
+/* STARS */
+.star{
+  position:absolute;
+  width:2px;height:2px;
+  background:white;
+  border-radius:50%;
+  animation:twinkle 2s infinite;
+}
+@keyframes twinkle{
+  0%,100%{opacity:.2}
+  50%{opacity:1}
+}
+
+/* SHOOTING STAR */
+.shooting-star{
+  position:absolute;
+  width:120px;height:2px;
+  background:linear-gradient(90deg,#fff,transparent);
+  transform:rotate(-45deg);
+  animation:shoot 3s linear infinite;
+  opacity:0;
+}
+@keyframes shoot{
+  0%{transform:translate(0,0) rotate(-45deg);opacity:0}
+  10%{opacity:1}
+  100%{transform:translate(600px,600px) rotate(-45deg);opacity:0}
+}
+
+/* SLIDES */
+.slide{
+  position:absolute;
+  width:100%;height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  opacity:0;
+  transition:1s ease;
+  transform:scale(1.05);
+  filter:blur(10px);
+  pointer-events:none;
+}
+.active{
+  opacity:1;
+  transform:scale(1);
+  filter:blur(0);
+  pointer-events:auto;
+}
+
+/* INTRO */
+.introText{
+  font-size:32px;
+  text-align:center;
+  letter-spacing:2px;
+  text-shadow:0 0 20px gold;
+  animation:intro 3s ease forwards;
+}
+@keyframes intro{
+  0%{transform:scale(.5);opacity:0}
+  50%{opacity:1}
+  100%{transform:scale(1.2);opacity:0}
+}
+
+/* BUTTON */
+.btn{
+  padding:12px 20px;
+  border:none;
+  border-radius:25px;
+  background:#ffcc00;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:20px;
+}
+
+/* SPACE */
+.sun{
+  width:80px;height:80px;
+  background:gold;
+  border-radius:50%;
+  box-shadow:0 0 40px gold;
+}
+.orbit{
+  width:200px;height:200px;
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:50%;
+  position:absolute;
+  animation:spin 10s linear infinite;
+}
+.earth{
+  width:25px;height:25px;
+  background:deepskyblue;
+  border-radius:50%;
+  position:absolute;
+  top:0;left:50%;
+  transform:translateX(-50%);
+}
+@keyframes spin{
+  from{transform:rotate(0)}
+  to{transform:rotate(360deg)}
+}
+
+/* CAKE */
+.cake-piece{
+  position:absolute;
+  font-size:40px;
+  animation:drop 2s ease forwards;
+}
+@keyframes drop{
+  from{transform:translateY(-200px);opacity:0}
+  to{transform:translateY(0);opacity:1}
+}
+
+/* TEXT */
+.textBox{
+  max-width:600px;
+  text-align:center;
+  animation:float 4s ease-in-out infinite;
+}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+}
+
+/* SUNFLOWER */
+.sunflower{
+  position:absolute;
+  font-size:20px;
+  animation:fall 6s linear infinite;
+}
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg)}
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+
+<!-- MUSIC -->
+<audio id="bgm" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_d5a3c6d1c1.mp3?filename=emotional-piano-ambient-118589.mp3">
+</audio>
+
+<!-- INTRO -->
+<div class="slide active" id="s0">
+  <div class="introText">Happy Birthday Mas Ipan 🌻</div>
+  <button class="btn" onclick="start()">Mulai</button>
+</div>
+
+<!-- SLIDE 1 -->
+<div class="slide" id="s1">
+  <h1>🎉 Buka Sini</h1>
+  <button class="btn" onclick="next()">Buka</button>
+</div>
+
+<!-- SLIDE 2 -->
+<div class="slide" id="s2">
+  <div class="sun"></div>
+  <div class="orbit"><div class="earth"></div></div>
+</div>
+
+<!-- SLIDE 3 -->
+<div class="slide" id="s3"></div>
+
+<!-- SLIDE 4 -->
+<div class="slide" id="s4">
+  <div class="textBox">
+    <h2>Barakallah fii umrik mas Ipan 🌻</h2>
+    <p>
+      Udah naik level ke 23 tahun nih xixi, semoga mas Ipan selalu dikelilingi hal baik, dilancarkan segalanya, sehat selalu, makin bahagia, makin banyak rezeki, dan tetap jadi mas Ipan yang keren xixi
+    </p>
+    <p>
+      Semoga hidup mas Ipan kayak bunga matahari—tetap tumbuh dan tetap nyari cahaya walau hidup kadang ada plot twist ✨
+    </p>
+  </div>
+</div>
+
+<script>
+let i=0;
+
+function start(){
+  document.getElementById('bgm').play();
+  change(1);
+}
+
+function next(){
+  change(++i);
+}
+
+function change(n){
+  document.querySelectorAll('.slide').forEach(s=>s.classList.remove('active'));
+  document.getElementById('s'+n).classList.add('active');
+
+  if(n===2) stars();
+  if(n===3) cake();
+  if(n===4) flowers();
+
+  if(n>=2) shootingStars();
+}
+
+/* STARS */
+function stars(){
+  for(let i=0;i<80;i++){
+    let s=document.createElement('div');
+    s.className='star';
+    s.style.left=Math.random()*100+'vw';
+    s.style.top=Math.random()*100+'vh';
+    document.getElementById('s2').appendChild(s);
+  }
+}
+
+/* SHOOTING STAR */
+function shootingStars(){
+  for(let i=0;i<3;i++){
+    let sh=document.createElement('div');
+    sh.className='shooting-star';
+    sh.style.left=Math.random()*100+'vw';
+    sh.style.top=Math.random()*100+'vh';
+    document.body.appendChild(sh);
+  }
+}
+
+/* CAKE */
+function cake(){
+  let arr=["🍰","🍰","🎂","🍒","🍰"];
+  arr.forEach((e,i)=>{
+    setTimeout(()=>{
+      let d=document.createElement('div');
+      d.className='cake-piece';
+      d.innerHTML=e;
+      d.style.left=40+i*10+'%';
+      document.getElementById('s3').appendChild(d);
+    },i*500);
+  });
+}
+
+/* SUNFLOWER */
+function flowers(){
+  for(let i=0;i<60;i++){
+    let f=document.createElement('div');
+    f.className='sunflower';
+    f.innerHTML='🌻';
+    f.style.left=Math.random()*100+'vw';
+    f.style.animationDuration=(3+Math.random()*4)+'s';
+    document.getElementById('s4').appendChild(f);
+  }
+}
+</script>
+
+</body>
+</html>
